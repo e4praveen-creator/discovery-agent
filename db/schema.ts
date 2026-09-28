@@ -1,0 +1,6 @@
+import {sqliteTable,text,integer,primaryKey,index} from 'drizzle-orm/sqlite-core';
+export const projects=sqliteTable('projects',{id:text('id').primaryKey(),owner:text('owner').notNull(),name:text('name').notNull(),state:text('state').notNull(),revision:integer('revision').notNull().default(1),createdAt:text('created_at').notNull()});
+export const members=sqliteTable('members',{projectId:text('project_id').notNull().references(()=>projects.id),userId:text('user_id').notNull(),email:text('email').notNull(),name:text('name').notNull(),role:text('role').notNull()},t=>[primaryKey({columns:[t.projectId,t.userId]}),index('members_user').on(t.userId)]);
+export const invites=sqliteTable('invites',{hash:text('hash').primaryKey(),projectId:text('project_id').notNull().references(()=>projects.id),role:text('role').notNull(),expires:text('expires').notNull(),usedBy:text('used_by')});
+export const loginTransactions=sqliteTable('login_transactions',{state:text('state').primaryKey(),nonce:text('nonce').notNull(),verifier:text('verifier').notNull(),returnPath:text('return_path').notNull(),expires:text('expires').notNull()});
+export const sessions=sqliteTable('sessions',{hash:text('hash').primaryKey(),userId:text('user_id').notNull(),email:text('email').notNull(),name:text('name').notNull(),expires:text('expires').notNull()});
