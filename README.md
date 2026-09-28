@@ -1,4 +1,4 @@
-# Tredence Discovery Agent
+# Discovery Agent
 
 An interactive demonstration and service-ready pilot for continuous enterprise discovery, centered on campaign audience selection.
 
